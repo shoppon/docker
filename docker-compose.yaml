@@ -10,6 +10,16 @@ services:
     volumes:
       - ~/code:/home/code
       - ~/app/vscode-euler:/root/.vscode-server
+  ubuntu:
+    image: ubuntu:1.0
+    ports:
+      - "9998:22"
+    networks:
+      dev:
+        ipv4_address: 172.18.0.99
+    volumes:
+      - ~/code:/home/code
+      - ~/app/vscode-euler:/root/.vscode-server
   jenkins:
     image: jenkins:2.210
     ports:
@@ -21,11 +31,16 @@ services:
       - /usr/local/bin/docker:/usr/bin/docker
   gitbook:
     image: gitbook:1.0
+    ports:
+      - "4000:4000"
     volumes:
       - ~/code/shoppon.github.io:/home/pages
-    ports:
-      - "8080:8080"
-    command: bash -c "cd /home/pages && gitbook build"
+    command: bash -c "cd /home/pages && gitbook install && gitbook build && gitbook serve"
+  gitbook_build:
+    image: gitbook:1.0
+    volumes:
+      - ~/code/shoppon.github.io:/home/pages
+    command: bash -c "cd /home/pages && gitbook install && gitbook build"
   manictime:
     image: manictime:latest
     volumes:
