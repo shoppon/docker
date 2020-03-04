@@ -3,7 +3,7 @@ FROM ubuntu:18.04
 COPY sources.list /etc/apt/sources.list
 
 RUN apt update
-RUN apt install -f -y gcc g++ perl vim git net-tools clang-format
+RUN apt install -f -y gcc g++ cmake gdb perl vim git net-tools clang-format
 RUN apt install -f -y openssh-server
 
 RUN mkdir /run/sshd

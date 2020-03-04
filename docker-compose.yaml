@@ -2,6 +2,7 @@ version: "3.3"
 services:
   dev:
     image: euler_dev:1.0
+    privileged: true
     ports:
       - "9999:22"
     networks:
@@ -12,6 +13,7 @@ services:
       - ~/app/vscode-euler:/root/.vscode-server
   ubuntu:
     image: ubuntu:1.0
+    privileged: true
     ports:
       - "9998:22"
     networks:
